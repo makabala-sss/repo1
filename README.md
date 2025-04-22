@@ -1,6 +1,6 @@
 # RETL-ASR-STT
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
 A repository for **parameter-efficient fine‑tuning** of OpenAI Whisper models on speech recognition (ASR) and speech‑to‑text translation (STT) tasks using LoRA, LoReFT, and DiReFT methods, built on top of the [StanfordNLP pyreft](https://github.com/stanfordnlp/pyreft) package.
 
@@ -117,4 +117,4 @@ Contributions and issues are welcome! Please open a GitHub issue or submit a pul
 
 ## 📄 License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the Apache License, Version 2.0. See the [LICENSE](LICENSE) file for details.
