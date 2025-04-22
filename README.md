@@ -14,13 +14,13 @@ RETl-ASR-STT/
 ├── ASR/                    # Whisper ASR training & evaluation scripts
 │   ├── full_params.py      # Full-model fine‑tuning baseline
 │   ├── peft_reft.py        # LoRA, LoReFT, DiReFT implementations for ASR
-│   ├── test_full_params.py # ASR evaluation for full-model
-│   └── test_peft_reft.py   # ASR evaluation for PEFT methods
+│   ├── test_full_params.py # ASR evaluation for full-params-fietune
+│   └── test_peft_reft.py   # ASR evaluation for Lora,Direft and Loreft
 ├── STT/                    # Whisper STT (speech translation) scripts
 │   ├── full_params.py      # Full-model fine‑tuning baseline
 │   ├── peft_reft.py        # LoRA, LoReFT, DiReFT implementations for STT
-│   ├── test_full_params.py # STT evaluation for full-model
-│   └── test_peft_reft.py   # STT evaluation for PEFT methods
+│   ├── test_full_params.py # STT evaluation for full-params-fietune
+│   └── test_peft_reft.py   # STT evaluation for for Lora,Direft and Loreft
 └── README.md               # Project overview and instructions
 ```
 
@@ -59,13 +59,14 @@ Navigate into the `ASR/` folder to fine‑tune and evaluate Whisper models for s
 ```bash
 cd ASR
 # Example: full-model fine-tuning on your dataset
-python full_params.py --model_size small --train_data your_asr_data --output_dir ./checkpoints
+python full_params.py --model_size small --use_fp16 False
 
 # Example: LoRA / LoReFT / DiReFT fine-tuning
-python peft_reft.py --model_size medium --method loreft --train_data your_asr_data --output_dir ./peft_checkpoints
+python peft_reft.py --model_size medium --intervention Loreft --reft_r 4
+python peft_reft.py --model_size large --intervention Lora --lora_r 8 --lora_alpha 16
 
 # Evaluate
-python test_peft_reft.py --checkpoint_dir ./peft_checkpoints
+python test_peft_reft.py --model_size medium --intervention Loreft --reft_r 4  --base_dir ./checkpoints
 ```
 
 ### 2. Speech‑to‑Text Translation (STT)
@@ -75,13 +76,13 @@ Navigate into the `STT/` folder to fine‑tune and evaluate Whisper models for s
 ```bash
 cd STT
 # Example: full-model fine-tuning
-python full_params.py --model_size large --train_data your_stt_data --output_dir ./checkpoints
+python full_params.py --model_size small --use_fp16 False
 
 # Example: LoRA / LoReFT / DiReFT
-python peft_reft.py --model_size small --method direft --train_data your_stt_data --output_dir ./peft_checkpoints
+python peft_reft.py --model_size large --intervention Lora --lora_r 8 --lora_alpha 16
 
 # Evaluate
-python test_peft_reft.py --checkpoint_dir ./peft_checkpoints
+python test_peft_reft.py --model_size medium --intervention Lora --lora_r 8 --lora_alpha 16  --base_dir ./checkpoints
 ```
 
 **Options**:
