@@ -23,7 +23,6 @@ dataset_name = "oovword/speech-translation-uk-en"  # Use CoVoST2 uk-to-English d
 parser = argparse.ArgumentParser(description="whisper training")
 parser.add_argument("--intervention", type=str, default="Loreft", help="Intervention type: [Loreft, Direft, Lora]")
 parser.add_argument("--model_size", type=str, default="small", help="Model size: small, medium, large")
-parser.add_argument("--layers", type=int, default=3, help="Number of intervention layers")
 parser.add_argument("--reft_r", type=int, default=4, help="Low-rank dimension for ReFT")
 parser.add_argument("--lora_r", type=int, default=8, help="Rank for LoRA low-rank matrices")
 parser.add_argument("--lora_alpha", type=int, default=16, help="LoRA scaling factor")
