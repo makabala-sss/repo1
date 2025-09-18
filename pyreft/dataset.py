@@ -49,6 +49,22 @@ from collections import defaultdict
 
 from transformers import DataCollator
 
+from transformers import DataCollatorForSeq2Seq
+@dataclass
+class ReftAudioDataCollator(object):
+    """Collate examples for ReFT."""
+    data_collator: DataCollatorForSeq2Seq # type: ignore
+    def __call__(self, instances: Sequence[Dict]) -> Dict[str, torch.Tensor]:
+        batch_inputs = self.data_collator(instances)
+        if "input_ids" in batch_inputs:
+            max_seq_length = batch_inputs["input_ids"].shape[-1]
+            batch_inputs["labels"] = batch_inputs["input_ids"]
+            del batch_inputs["input_ids"]
+        else:
+            max_seq_length = batch_inputs["labels"].shape[-1]
+        batch_inputs["intervention_locations"] = batch_inputs["intervention_locations"][..., :max_seq_length]
+        return batch_inputs
+
 
 def parse_positions(positions: str):
     # parse position
